@@ -33,14 +33,45 @@ function render(variables = {}) {
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>${variables.name ? variables.name : "Lucy"} </h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/school/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          <h1>${variables.name ? variables.name : "Lucy Boilett"} ${
+    variables.lastName ? variables.lastName : ""
+  } </h1>
+          <h2>${variables.role ? variables.role : "Web Developer"}</h2>
+          <h3>${variables.city ? variables.city : "Miami"}  ${
+    variables.country ? variables.country : ""
+  } 
+          </h3>
+          
+          <ul class=${
+            variables.socialMediaPosition === "position-right"
+              ? "position-right"
+              : "position-left"
+          }>
+            <li>
+              <a href=${variables.twitter ||
+                "https://twitter.com/4geeksacademy"} target="_blank">
+              <i class="fab fa-twitter"></i></a>
+            </li>
+
+            <li>
+              <a href=${variables.github ||
+                "https://github.com/4geeksacademy"} target="_blank">
+              <i class="fab fa-github"></i></a>
+            </li>
+
+            <li>
+              <a href=${variables.linkedin ||
+                "https://linkedin.com/school/4geeksacademy"} target="_blank">
+              <i class="fab fa-linkedin"></i></a>
+            </li>
+
+             <li>
+              <a href=${variables.instagram ||
+                "https://instagram.com/4geeksacademyes"} target="_blank">
+              <i class="fab fa-instagram"></i></a>
+            </li>
+            
+
           </ul>
         </div>
     `;
@@ -71,7 +102,6 @@ window.onload = function() {
     city: null
   };
   render(window.variables); // render the card for the first time
-
   document.querySelectorAll(".picker").forEach(function(elm) {
     elm.addEventListener("change", function(e) {
       // <- add a listener to every input
@@ -85,6 +115,7 @@ window.onload = function() {
           : this.value == "false"
           ? false
           : this.value;
+      console.log(window.variables);
       render(Object.assign(window.variables, values)); // render again the card with new values
     });
   });
